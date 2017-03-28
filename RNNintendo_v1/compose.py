@@ -34,6 +34,7 @@ def get_songs(path):
             if np.array(song).shape[0] > trunc:
                     songs.append(song[:trunc])
         except Exception as e:
+            print('[WARN] Rejecting song %s' % (f))
             raise e           
     return songs
 
@@ -58,6 +59,7 @@ def custom_loss(predictions, labels):
 
 #---(^_^)---Building model---(^_^)---#
 print('[INFO] Initializing model...')
+
 #Defining inputs
 x = tf.placeholder(tf.float32)
 #Convolution (kinda useless?)
@@ -113,10 +115,14 @@ adventure_step = tf.train.AdamOptimizer().minimize(loss)
 sess = tf.InteractiveSession() #because Session is for noobs
 sess.run(tf.global_variables_initializer())
 
+saver = tf.train.Saver()
 print('[INFO] Beginning training')
-eons = 2
-repeats = 4
-verbosity = 2 
+eons = 12
+repeats = 100
+
+#inverse qualities (e.g. higher anxiety -> less saves)
+verbosity = 50 
+anxiety = 3
 songs = get_songs(song_path)
 
 for eon in range(eons):
@@ -124,28 +130,32 @@ for eon in range(eons):
     for song in songs:
         for repeat in range(repeats):
             if repeat % verbosity == 0:
-                print('[INFO] (%d of %d) steps in (%d of %d) eons: (%d of %d songs)' % (repeat + 1, repeats, eon + 1, eons, i, len(songs)))
+                print('[INFO] (%d of %d) steps in (%d of %d) eons: (%d of %d songs) loss: %f' % 
+                        (repeat + 1, repeats, eon + 1, eons, i, len(songs), loss.eval(feed_dict={x:song})))
             sess.run(adventure_step, {x:song})
         i += 1
+    if eon % anxiety == 0:
+        saver.save(sess, r'saves/nintendo_%d.ckpt' % (eon))
+saver.save(sess, r'saves/nintendo_final.ckpt')
         
 #Producing output
 primer = np.array(midi_manipulation.midiToNoteStateMatrix(primer_path))
-music = []
+music = np.array([])
 if len(primer) > song_length:
     primer = primer[:song_length]
 else:
     print('[ERROR] Make sure your primer piece is as least %d units long' % (song_length))
     exit()
 
-sets = 10 #indictates number of iterations piece is processed
+sets = 2000 #indictates number of iterations piece is processed
 
 print('[INFO] Generating music')
 for _ in range(sets):
     if _ % verbosity == 0:
         print('[INFO] Iteration %d of %d' % (_ + 1, sets))
-    music.append(sess.run(outputs, {x:primer}))
-    primer = music[-1] #I think the right word for this is "jank"
-final_tune = np.reshape(music[-1], (-1, 156))
+    music = sess.run(outputs, {x:primer})
+    primer = music #I think the right word for this is "jank"
+final_tune = np.reshape(music, (-1, 156))
 
 #Writing output columns separated by tabs, rows separated by newlines
 output_file = open(output_path, 'w')

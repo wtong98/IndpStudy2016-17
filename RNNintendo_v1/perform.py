@@ -13,7 +13,7 @@ import numpy as np
 import midi_manipulation
 
 input_path = r'final_tune.txt'
-threshold = 0.12
+threshold = 1.23
 name = 'awesomeness'
 
 music_file = open(input_path)

@@ -44,3 +44,7 @@ you have Python on your machine!).
 	
 [Complete Bach MIDI Index](http://www.bachcentral.com/midiindexcomplete.html)
 	If you're more into classical music, this site hosts a lot of MIDI transcripts of Bach. A lot.
+	
+[Piano MIDI German Thing](http://www.piano-midi.de/)
+	Another huuuuge set of clasical MIDI files, all as piano solos. Contains works of Chopin, Mozart,
+	Beethoven, + others.

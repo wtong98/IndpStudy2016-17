@@ -1,3 +1,4 @@
+(change to README.md for markdown to take effect)
 Playing around with ANN's with Tensorflow, mainly for music generation.
 
 This project is the result of our Independent Study for the 2016-2017 school year, in 

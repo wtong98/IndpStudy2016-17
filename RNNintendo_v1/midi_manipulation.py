@@ -4,7 +4,7 @@ import numpy as np
 lowerBound = 24
 upperBound = 102
 span = upperBound-lowerBound
-
+crevice = 10
 
 def midiToNoteStateMatrix(midifile, squash=True, span=span):
     pattern = midi.read_midifile(midifile)
@@ -41,7 +41,7 @@ def midiToNoteStateMatrix(midifile, squash=True, span=span):
                         if isinstance(evt, midi.NoteOffEvent) or evt.velocity == 0:
                             state[evt.pitch-lowerBound] = [0, 0]
                         else:
-                            state[evt.pitch-lowerBound] = [1, 1]
+                            state[evt.pitch-lowerBound] = [crevice, crevice]
                 elif isinstance(evt, midi.TimeSignatureEvent):
                     if evt.numerator not in (2, 4):
                         # We don't want to worry about non-4 time signatures. Bail early!
@@ -88,13 +88,13 @@ def noteStateMatrixToMidi(statematrix, name="example", span=span):
         for i in range(span):
             n = state[i]
             p = prevstate[i]
-            if p[0] == 1:
+            if p[0] == crevice:
                 if n[0] == 0:
                     offNotes.append(i)
-                elif n[1] == 1:
+                elif n[1] == crevice:
                     offNotes.append(i)
                     onNotes.append(i)
-            elif n[0] == 1:
+            elif n[0] == crevice:
                 onNotes.append(i)
         for note in offNotes:
             track.append(midi.NoteOffEvent(tick=(time-lastcmdtime)*tickscale, pitch=note+lowerBound))

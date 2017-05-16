@@ -82,8 +82,11 @@ All the files necessary to run the neural net are located in the directory RNNin
 	Start here when working with TensorFlow
 	
 ### Some articles that show neural nets in action
-[The Unreasonable Effectiveness of of Recurrent Neural Networks - Andrej Karpathy)[http://karpathy.github.io/2015/05/21/rnn-effectiveness/]
+[The Unreasonable Effectiveness of of Recurrent Neural Networks - Andrej Karpathy](http://karpathy.github.io/2015/05/21/rnn-effectiveness/)
 	On the longer side, but has a strong explantation of the use of LSTMs in RNNs, this one used for language recognition.
 
 [Who is that Neural Network? - Henrique M. Soares](https://jgeekstudies.org/2017/03/12/who-is-that-neural-network/)
 	One of the many applications of neural networks for image recognition, this one being a convolutional neural net.
+	
+[Recommending music on Spotify with deep learning - Sander Dieleman](http://benanne.github.io/2014/08/05/spotify-cnns.html)
+	Another use of convolutional neural networks, this time for providing users of a service with recommendations based on their usage.

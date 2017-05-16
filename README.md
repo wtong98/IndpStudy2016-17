@@ -37,6 +37,8 @@ If you've got python installed, just about all this software can be installed us
 the official instructions online for installing the framework.
 
 ## Running the Neural Net
+All the files necessary to run the neural net are located in the directory RNNintendo_v1. To 
+
 
 *stuff goes here*
 *get Tensorflow + Magenta* something something
@@ -45,7 +47,6 @@ the official instructions online for installing the framework.
 ## Some ~~Miscellaneous~~ Helpful Links
 
 ### MIDI Utilities
-
 [Music Animation Machine MIDI Player](http://www.musanim.com/player/)
 	This is a MIDI player/visualizer that allows you to see when where exactly your notes fall.
 	Unfortunately there is only a Windows distribution available, but if you are running Windows
@@ -60,11 +61,10 @@ the official instructions online for installing the framework.
 	see the MIDI files in "proper musical notation."
 
 ### MIDI Libraries/Datasets
-
 [NinSheetMusic](http://www.ninsheetmusic.org/)
 	The website we got our Nintendo MIDI files from. With 3300+ sheets hosted on the website, getting
 	a proper dataset should be easy. Because all of the MIDI files have the URL format
-	http://www.ninsheetmusic.org/download/mid/(some number), we used script to grab a bunch of MIDI
+	http://www.ninsheetmusic.org/download/mid/(a number), we used script to grab a bunch of MIDI
 	files at once (script currently not on GitHub, but will try to upload here soon).
 	
 [Complete Bach MIDI Index](http://www.bachcentral.com/midiindexcomplete.html)
@@ -80,3 +80,10 @@ the official instructions online for installing the framework.
 
 [TensorFlow Tutorial](https://www.tensorflow.org/get_started/)
 	Start here when working with TensorFlow
+	
+### Some articles that show neural nets in action
+[The Unreasonable Effectiveness of of Recurrent Neural Networks - Andrej Karpathy)[http://karpathy.github.io/2015/05/21/rnn-effectiveness/]
+	On the longer side, but has a strong explantation of the use of LSTMs in RNNs, this one used for language recognition.
+
+[Who is that Neural Network? - Henrique M. Soares](https://jgeekstudies.org/2017/03/12/who-is-that-neural-network/)
+	One of the many applications of neural networks for image recognition, this one being a convolutional neural net.

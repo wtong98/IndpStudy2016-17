@@ -40,7 +40,13 @@ the official instructions online for installing the framework.
 All the files necessary to run the neural net are located in the directory RNNintendo_v1. 
 To begin, the data being trained on should be placed in a directory '/train_data/' in the form of midi files. 
 Have a midi file primer.mid ready in the same directory as the scripts that will be used when generating the
-final product. With this, it's time to adjust the parameters in the code!
+final product. In addition, near the top of compose.py is a block labeled #important variables. The variable 
+'trunc' should be changed to match your data: MIDI files with more timesteps (sixteenth notes) than 'trunc' 
+will be truncated to that length, and files with less timesteps will be omitted from the dataset.
+
+To begin training the net, *directions for training here*
+
+`inline code test`
 
 
 ## Some ~~Miscellaneous~~ Helpful Links

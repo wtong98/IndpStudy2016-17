@@ -1,2 +1,0 @@
-Has interesting notes and link to easy way to convert midi files:
-http://danshiebler.com/2016-08-10-musical-tensorflow-part-one-the-rbm/

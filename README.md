@@ -37,11 +37,10 @@ If you've got python installed, just about all this software can be installed us
 the official instructions online for installing the framework.
 
 ## Running the Neural Net
-All the files necessary to run the neural net are located in the directory RNNintendo_v1. To 
-
-
-*stuff goes here*
-*get Tensorflow + Magenta* something something
+All the files necessary to run the neural net are located in the directory RNNintendo_v1. 
+To begin, the data being trained on should be placed in a directory '/train_data/' in the form of midi files. 
+Have a midi file primer.mid ready in the same directory as the scripts that will be used when generating the
+final product. With this, it's time to adjust the parameters in the code!
 
 
 ## Some ~~Miscellaneous~~ Helpful Links

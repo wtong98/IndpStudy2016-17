@@ -24,7 +24,7 @@ for r in range(len(raw_data)):
     row = raw_data[r].split('\t')
     for c in range(156):
         if float(row[c]) > threshold:
-            data[r][c] = 1
+            data[r][c] = 4
             print(row[c])
         else:
             data[r][c] = 0

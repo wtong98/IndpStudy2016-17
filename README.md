@@ -1,3 +1,5 @@
+#Let us quest
+
 ## Introduction
 Welcome, brave adventurers! Neural nets are a massive component of modern computation, so
 it's great you're taking the initiative and getting your feet wet in this independent study.
@@ -18,36 +20,59 @@ with Mike Xu to get everything straigtened out.
 
 Ultimately, here's what you'll need:
 <ul>
-<li> Python: preferably Python 3, but Python 2 will probably work okay if you're on a 
+<li> `Python`: preferably Python 3, but Python 2 will probably work okay if you're on a 
 Linux machine (another reason to switch) You'll also need some additional modules listed
 below</li>
 <ul>
-<li> numpy: a python module designed for numerical computation </li>
-<li> tqdm: for attractive loading bars </li>
-<li> scipy: not, strictly speaking, neccesary, but it's got loads of useful computation </li>
+<li> `numpy`: a python module designed for numerical computation </li>
+<li> `tqdm`: for attractive loading bars </li>
+<li> `scipy`: not, strictly speaking, neccesary, but it's got loads of useful computation </li>
 utilities that you might want to try</li>
-<li> matplotlib: for making pretty plots</li>
+<li> `matplotlib`: for making pretty plots</li>
 </ul>
-<li> TensorFlow: the neural network framework this project is built on </li>
-<li> Jupyter Notebook: software that adds Mathematic-style editing to python
+<li> `TensorFlow`: the neural network framework this project is built on </li>
+<li> `Jupyter Notebook`: software that adds Mathematic-style editing to python
 </ul>
 
 If you've got python installed, just about all this software can be installed using pip (e.g.
-<code>pip install [PackageName]</code>. But especially if you're using Windows + TensorFlow, check
+<code>pip install [PackageName]</code>). But especially if you're using Windows + TensorFlow, check
 the official instructions online for installing the framework.
 
-## Running the Neural Net
-All the files necessary to run the neural net are located in the directory RNNintendo_v1. 
-To begin, the data being trained on should be placed in a directory '/train_data/' in the form of midi files. 
-Have a midi file primer.mid ready in the same directory as the scripts that will be used when generating the
-final product. In addition, near the top of compose.py is a block labeled #important variables. The variable 
-'trunc' should be changed to match your data: MIDI files with more timesteps (sixteenth notes) than 'trunc' 
-will be truncated to that length, and files with less timesteps will be omitted from the dataset.
+## Running the Code
+All the files necessary to run the neural net are located in the directory RNNintendo_v1. To do
+a simple run with all our current settings intact, navigate into the RNNintendo_v1 directory
+and copy all your midi files into the "train_data" directory. Keep ahold of one of your training
+samples to use as a primer melody, and rename it to "primer.mid" Assuming you have all
+the neccesary software installed, you can then type
 
-To begin training the net, *directions for training here*
+`python compose.py`
 
-`inline code test`
+and off it goes processing all sorts of unbelievably complex calculations, doing the kinds of 
+stuff the human brain takes 3 years to learn in just a few days or weeks. When that's finished
+and you have a `final_tune.txt` files in the directory, type
 
+`jupyter notebook threshold_finder.ipynb`
+
+which will produce a graph for you at the very bottom along with a recommended value to set as a
+threshold. Now open the file `perform.py` and edit the threshold value in that file
+accordingly. When you're satisfied, go ahead and type
+
+`python perform.py`
+
+and viola! You have you're very first midi sample of generated music. The `perform.py` script
+will also spit out the values of the note-state matrix that it's reading as nonzero.
+
+## Specifics about the code
+First off, let me just put it out there, our code is pretty beastly and violates loads of
+good coding practices. That being said, we've tried to clean it up a-plenty and make it nice
+and pretty and well-documented for you guys. There's plenty of explanations in the comments,
+but all the same, we're on the butt-end of senior year and (extremely) ready to graduate,
+so if there's anything particularly gruesome or nonsensical, please don't hesitate to reach
+out.
+
+## Roadmap
+
+## Final Thoughts
 
 ## Some ~~Miscellaneous~~ Helpful Links
 

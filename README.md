@@ -68,11 +68,123 @@ good coding practices. That being said, we've tried to clean it up a-plenty and 
 and pretty and well-documented for you guys. There's plenty of explanations in the comments,
 but all the same, we're on the butt-end of senior year and (extremely) ready to graduate,
 so if there's anything particularly gruesome or nonsensical, please don't hesitate to reach
-out.
+out (our emails are at the top of `compose.py`)
+
+First off, if you take a peek into the directories, `samples` contains examples pieces of midi
+or note-state matrices produced in a run of our neural network. `primer.mid` is an example midi-clip
+used to primer our network. `awesomeness.mid` is an example generated midi file. `final_tune.txt`
+is an example note-state matrix depecting a song, with each line corresponding to a row, each column
+separated by tab.
+
+A "note-state matrix" itself is the numerical representation of a song in a form that our
+network can understand. Essentially, it's composed of a matrix with *t* rows, each row
+corresponding to a time-step that's the equivalent of one sixteenth note long, and *2n* columns,
+where each *n* represents an arbitrarily defined note spaced one half-note apart from adjacent
+values. A note-state matrix is meant to be binary, with a 0 corresponding to nothing happening
+and a 1 corresponding to either a note-on (if the 1 occurs in the first *n* columns)
+or note-off event (if it happens in the last *n* columns). For the original explanation of the
+matrix, check out this [link](https://medium.com/@oktaybahceci/generate-music-with-tensorflow-midis-4bf928a35c3a)
+
+For our note-state matrices in particular, we made a couple modifications so that, instead of reading
+a 1 as a trigger, it currently reads a 4 instead. The hope was to allow the network to better
+distinguish a note-on from a note-off event, though our efforst don't seemed to have panned out
+quite the way we wanted them to. More on that later.
+
+If you take a look at the `RNNintendo_v1` directory, here you'll find all the essential code for
+training a running the beast. The single-most important script here, and the one that functions as
+the brains of the whole operation, is `compose.py`. This script is a real beast that basically takes
+a convolution layer and plops it right on top of an RNN, the idea being to make our network
+note and time intransient (meaning that the network won't care about time-shifts or key signatures).
+The method in which it does the training and generating is a little different than the ways followed
+by GRUV and Magenta. Both of these utilities take a starting melody, then effectively use a system
+of probabilities to figure out the next notes. For us, we started out aiming for that as well, but
+by a happy accident, found out we had accidently built something that works much more like 
+Inceptionism. Instead of going note by note, the network will chunk out a portion of the music, and
+train/generate/enhance that portion of music recurrently before moving on. I've been tinkering a
+great deal with the code trying to make it more usable, so hopefully everything still works okay,
+but in case I accidently broke something, shoot me an email pronto and I'll try to get it patched
+back up.
+
+Next up, threshold_finder.ipynb is an iPython notebook that you can only view via a Jupyter server.
+Assuming you've also the prerequesite software, you need only type in
+`jupyter notebook threshold_finder.ipynb` and away it goes. iPython makes use of mathematica-like
+functionality, so you can execute each cell of code independently by pressing shift-enter. The
+point of this script is to provide a way to gauge where a "threshold" value for determining
+a note-on/off event. Ideally, you'd be able to look at a note-state matrix, pick out the nonzero
+values, and say that these are your note-on/off events. But the problem with a machine-learning
+generated output is that it spits out results with a load of decimals. Therefore, use this script
+to look at your distribution of values. Hopefully, it will have two peaks, one clumped around
+0, the other clumped around whatever nonzero value you elected to be your triggering value.
+The sample value provided by the script above the graph is a suggested starting point for
+choosing a "threshold value," but you can go either higher or lower and see what kinds of results
+you get.
+
+Speaking of which, to actually generated these results, turn now to `perform.py`. The purpose of
+this script is to take the note-state matrix produced by `compose.py`, the threshold_value you
+hardcode manually into the script, and generate a (hopefully) awesome sounding midi. The script
+will also spit out a list of all the values that fall above your threshold value. You'll want
+this list to be longish, but not so long as to overwhelm your outputs with a barrage of notes and
+, of coure, not so short that there's barely any music at all.
+
+And finally, the midi_manipulation.py\* scripts are there as utilities for dealing with note-state
+matrices. To modify what nonzero value counts as a "trigger," you'll have to dig in the .py script
+and change it. The .pyc script is a compiled version of the original that python produces whenever
+its imported.
+
+The `saves` and `train_data` directories are important folders relied upon by compose.py to save
+TensorFlow checkpoints to and draw training data from, respectively. A word of warning, I think
+the saving mechanism right now is somewhat broken. And at any rate, it takes up a *ridong-culous*
+amount of hard-drive space, so consider disabling the feature altogether and hope your machines
+don't crash.
 
 ## Roadmap
+Here are some potential areas you guys can look into for improving the system. If you have
+your own plans, feel free to persue them. Please don't feel obligated to follow the below
+recommendations.
+
+<ul>
+<li><b>Max-pooling:</b> In most (if not all) enterprise-grade convolutional neural networks, a layer
+of max-pooling always seems to follow a layer of convolution, apparently as a means of aggregating
+data and "looking at the bigger picture." Thus, max-pooling appears to be vital to the process of
+achieving note and time intransience whenever convolution is used, though we never took the time to
+understand it and implemnt it properly. Colah's blog may be a good place to start with this,</li>
+<li><b>Dropout:</b> To prevent oversaturing neurons with input, most networks implement "dropout,"
+where values are apparently dropped at random. Similar to max-pooling, dropout seems to be a
+vital part to a healthy neural network, but we never bothered to research it further. The TensorFlow
+tutorial may be a good place to start with this.</li>
+<li><b>Gated Recurrent Unit:</b> Gated Recurrent Units (GRU) are a simpler version of the traditional
+Long-Short Term Memory (LSTM) cells used in the network. GRU's are becoming more popular for reasons
+beyond me, but they might be worth checking out. Consult Colah's blog for a nice introduction.</li>
+<li><b>Multi-layered RNN's:</b> A neat feature that's possible to do (relatively) easily with
+TensorFlow is to stack multiple RNN's on top of each other. Perhaps doing so might improve the
+network's ability to recognize more subtle patterns in the music. Check the TensorFlow tutorials for
+further guidance on this topic.</li>
+<li><b>Magenta's MIDI interface:</b> Magenta is a project built on top of TensorFlow, aimed at
+technically minded artists to help them start running with neural-network music projects. It also
+seems that Magenta has their own library of functions for dealin with midi files. Using Magenta's
+midi-awesomeness seems to be far more sophisticated than the current system of simple note-state
+matricies used in this project, so you may want to consider switching. Check Magenta's github
+for more details.</li>
+<li><b>Structure data better:</b> At the moment, the way our music is being represented takes up an
+ungodly amount of RAM. To represent just a 50 sixteenth note sequence takes, at one point, memory
+on the order of gigabytes. Finding a better way to represent the data is therefore paramount for
+scaling the project upwards to larger datasets and longer tracks. One way to achieve this would be
+to leverage Magenta's MIDI interface to capture each song in a far more compressed, efficient
+form.</li>
+</ul>
 
 ## Final Thoughts
+That's about it, folks. Thanks for sticking around, have fun with the project, and from the bottom
+of our hearts, we wish you the best of luck this senior year. Again, if you have any questions,
+concerns, or the code just can't seem to work right, please don't hesitate to reach out. Also,
+one last pro-tip, to save on RAM when using one of the Linux machines in the IRC, pressing
+`[CTRL] + [ALT] + <F2>` will open for you a gui-less virtual terminal, reducing the need to render
+centos's fancy desktop environment. Just remember to switch back to the original terminal (I
+think it's on `<F1>`) when you're letting the network bake in the background, so that anyone 
+snooping around can't mess with your stuff.
+
+Happy coding!
+Austin Choi and William Tong
 
 ## Some ~~Miscellaneous~~ Helpful Links
 
@@ -89,6 +201,14 @@ out.
 [Anvil Studio](http://www.anvilstudio.com/)
 	Kind of like the Online Sequencer, but as a Windows application. Has staff view if you want to
 	see the MIDI files in "proper musical notation."
+
+[Magenta's Github](https://github.com/tensorflow/magenta)
+	Excellent usage of TensorFlow for music-generating capabilities. Also has a sophisticated
+	midi-interface for TensorFlow
+
+[GRUV](https://github.com/MattVitelli/GRUV)
+	The original software we used for generating music. It's a little limited, given that it deals
+	with raw waveforms instead of midi files, so the music isn't nearly as clean.
 
 ### MIDI Libraries/Datasets
 [NinSheetMusic](http://www.ninsheetmusic.org/)

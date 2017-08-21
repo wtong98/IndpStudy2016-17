@@ -144,16 +144,40 @@ More on that in the next part.
 ## A (really) brief primer on neural networks
 Ultimately, neural networks are magic black boxes in which you feed in data, tell it what you want it to see,
 and off it goes learning like a grade-conscious sophomore in MI-3. The way it actually does the learning
-relies on a ton of statistics, calculus, and a dash of linear algebra, but no one really understands it
+is justified by a ton of statistics, calculus, and a dash of linear algebra, though no one really understands it
 properly anyway. If you're looking for the details, Colah's blog and the TensorFlow tutorials are an excellent
 place to start. Most of the literature is also available freely through arXiv, though if you run into a
-pay wall, [this](sci-hub.ac) is an excellent resource.
+pay wall, [this](sci-hub.ac) is an excellent resource (and, incidentally, is also a life-saver in many a 
+science classes, too).
 
-Neural networks are often organized into layers, which are collections of neurons that collective process
+Neural networks are often organized into layers, which are collections of neurons that collectively process
 data. Networks can be described by "width," the number of neurons in a layer, and "depth," the total number
 of layers in a network. Generally, more width equates to greater features of the data capable of being
 recognized, whereas more depth equates to more abstract details of the data being learned. The bigger the
 network, the more data it needs to train. Too small a dataset and you risk overfitting.
+
+Fundamentally, a single of neuron can be thought of as a simple y = mx + b, where x is your input value, y is
+your output, m is called a "weight variable," and b is called a "bias variable." If you're in LinAlg or you've
+ever done any work with matrices and vectors, you might remember that y = mx = b can be generalized to
+Wx_ + b_ = y_, where W is a matrix of weights, x_ is a vector of inputs, and y_ is a vector of outputs (please
+forgive the messy notation--I couldn't figure out how to do math markup in github). Thus, using some clever
+notation, we can express an entire layer of neurons with their inputs and outputs using some simple matrix
+multiplication.
+
+So, if we stack layer upon layer of neurons together, the output from one layer pouring into the input
+of the next, then mathematically, it would look something like this:
+
+y_ = W1(W2(W3(...Wn(x_)...)))
+
+Right?
+
+Nope.
+
+The problem with simply stacking neurons like this is that they're all linear. Doing y = mx + b over and
+over agains would only modify the m and b coefficients, but the whole darn thing itself remains stubbornly
+straight. What if you're trying to model a curve? Imagine finding the right m and b to fit y = mx + b to
+y = x^2.
+
 
 UNFINISHED
 

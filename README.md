@@ -1,4 +1,9 @@
-#Let us quest
+<h1>Let us quest</h1>
+<!-- TODO: Fix formatting issues -->
+
+#TODO describe hyperparameters
+#TODO write out descriptions of max-pooling, dropout, etc
+#     and point them in the right direction for papers
 
 ## Introduction
 Welcome, brave adventurers! Neural nets are a massive component of modern computation, so
@@ -181,9 +186,10 @@ one last pro-tip, to save on RAM when using one of the Linux machines in the IRC
 `[CTRL] + [ALT] + <F2>` will open for you a gui-less virtual terminal, reducing the need to render
 centos's fancy desktop environment. Just remember to switch back to the original terminal (I
 think it's on `<F1>`) when you're letting the network bake in the background, so that anyone 
-snooping around can't mess with your stuff.
+snooping around can't mess with your stuff.\n
 
 Happy coding!
+
 Austin Choi and William Tong
 
 ## Some ~~Miscellaneous~~ Helpful Links

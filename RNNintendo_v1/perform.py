@@ -1,20 +1,20 @@
 #!/usr/bin/python
 
-'''
+"""
 Converts musical matrix into midi file
 
 Authors:
     Austin Choi (achoi@imsa.edu)
     William Tong (wtong@imsa.edu)
 Date: 5 March 2017
-'''
+"""
 
 import numpy as np
 import midi_manipulation
 
 input_path = r'final_tune.txt'
-threshold = 1.23
-name = 'awesomeness'
+threshold = 1.23  # the level delineating a note event. Anything higher counts as an event.
+name = 'awesomeness'  # name your midi file will get saved to
 
 music_file = open(input_path)
 raw_data = music_file.readlines()

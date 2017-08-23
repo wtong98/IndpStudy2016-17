@@ -1,12 +1,33 @@
+#!/usr/bin/python
+"""
+This script was borrowed from a guy's blog, adapted to convert midi files into the
+note-state matrices read by compose.py. Unfortunately, I've long since forgotten who or where the
+script came from, so many apologies!
+
+Author:
+    A really clever dude on the Internet
+
+Date: Some time in the distant, nebulous past
+"""
+
 import midi
 import numpy as np
 
-lowerBound = 24
-upperBound = 102
+lowerBound = 24  # the lowest midi note to be read (dictates size of your matrix)
+upperBound = 102  # the highest midi note to be read (also dictates size of your matrix)
 span = upperBound-lowerBound
-crevice = 10
+crevice = 10  # changes the matrix to use 10's instead of 1's to indicate note events.
+              # I suspect it doesn't actually improve the model that much.
 
 def midiToNoteStateMatrix(midifile, squash=True, span=span):
+    """
+    Converts the midi file to the note state matrix
+
+    :param midifile: path to your midi file
+    :param squash: I have no idea. Give it your best guess.
+    :param span: difference between the highest and lowest notes
+    :return: numpy array representing your matrix
+    """
     pattern = midi.read_midifile(midifile)
 
     timeleft = [track[0].tick for track in pattern]
@@ -69,6 +90,14 @@ def midiToNoteStateMatrix(midifile, squash=True, span=span):
     return statematrix
 
 def noteStateMatrixToMidi(statematrix, name="example", span=span):
+    """
+    Converts a note state matrix back into a midi file
+
+    :param statematrix: numpy array representing your matrix
+    :param name: name to be given to your midi file
+    :param span: difference between the highest and lowest notes
+    :return: nothing. Writes midi file to disk, using the name you gave it.
+    """
     statematrix = np.array(statematrix)
     if not len(statematrix.shape) == 3:
         statematrix = np.dstack((statematrix[:, :span], statematrix[:, span:]))

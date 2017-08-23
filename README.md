@@ -15,8 +15,8 @@ the technical goodies you'll need. If you're using Windows, argh!, I recommend
 dual-booting with Linux. Not only is GNU/Linux vastly superior to Windows in so many
 different ways, it will make installing the software you'll need loads easier, too. For
 an easy distribution to start with, I recommend Linux Mint. Full instructions for
-its installation are readably available via Google, and if you get stuck, try consulting
-with Mike Xu to get everything straigtened out.
+its installation are readably available via Google, and if you get stuck, send us an email or
+try consulting with Mike Xu to get everything straigtened out.
 
 Ultimately, here's what you'll need:
 <ul>
@@ -32,6 +32,7 @@ utilities that you might want to try</li>
 </ul>
 <li> `TensorFlow`: the neural network framework this project is built on </li>
 <li> `Jupyter Notebook`: software that adds Mathematic-style editing to python
+<li> `midi`: python module for midi manipulation
 </ul>
 
 If you've got python installed, just about all this software can be installed using `pip` (e.g.
@@ -50,8 +51,7 @@ the neccesary software installed, you can then type
 
 `python compose.py`
 
-and off it goes processing all sorts of unbelievably complex calculations, doing the kinds of 
-stuff the human brain takes 3 years to learn in just a few days or weeks. When that's finished
+and off it goes processing all sorts of unbelievably complex calculations. When that's finished
 and you have a `final_tune.txt` files in the directory, type
 
 `jupyter notebook threshold_finder.ipynb`
@@ -73,11 +73,11 @@ but all the same, we're on the butt-end of senior year and (extremely) ready to 
 so if there's anything particularly gruesome or nonsensical, please don't hesitate to reach
 out (our personal emails are at the top of `compose.py`)
 
-First off, if you take a peek into the directories, `samples` contains example pieces of midi
+If you take a peek into the directories, `samples` contains example pieces of midi
 or note-state matrices produced in a run of our neural network. `primer.mid` is an example midi-clip
 used to prime our network. `awesomeness.mid` is an example generated midi file. `final_tune.txt`
 is an example note-state matrix depecting a song, with each line corresponding to a row, each column
-separated by tab.
+separated by tab.First off, 
 
 A "note-state matrix" itself is the numerical representation of a song in a form that our
 network can understand. Essentially, it's composed of a matrix with *t* rows, each row

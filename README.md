@@ -19,21 +19,26 @@ its installation are readably available via Google, and if you get stuck, send u
 try consulting with Mike Xu to get everything straigtened out.
 
 Ultimately, here's what you'll need:
-<ul>
-<li> `Python`: preferably Python 3, but Python 2 will probably work okay if you're on a 
+
+-`Python`: preferably Python 3, but Python 2 will probably work okay if you're on a 
 Linux machine (another reason to switch) You'll also need some additional modules listed
-below</li>
-<ul>
-<li> `numpy`: a python module designed for numerical computation </li>
-<li> `tqdm`: for attractive loading bars </li>
-<li> `scipy`: not, strictly speaking, neccesary, but it's got loads of useful computation
-utilities that you might want to try</li>
-<li> `matplotlib`: for making pretty plots</li>
-</ul>
-<li> `TensorFlow`: the neural network framework this project is built on </li>
-<li> `Jupyter Notebook`: software that adds Mathematic-style editing to python
-<li> `midi`: python module for midi manipulation
-</ul>
+below
+
+-`numpy`: a python module designed for numerical computation
+
+-`tqdm`: for attractive loading bars
+
+-`scipy`: not, strictly speaking, neccesary, but it's got loads of useful computation
+utilities that you might want to try
+
+-`midi`: python module for midi manipulation
+
+-`matplotlib`: for making pretty plots
+
+-`TensorFlow`: the neural network framework this project is built on
+
+-`Jupyter Notebook`: software that adds Mathematic-style editing to python
+
 
 If you've got python installed, just about all this software can be installed using `pip` (e.g.
 <code>pip install [PackageName]</code>). But especially if you're using Windows + TensorFlow, check
